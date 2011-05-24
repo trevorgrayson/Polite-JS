@@ -1,8 +1,9 @@
 PoliteJS = {
 	libs: [],
+  REPO: ['http://somemasterepo.com/'],
 
-	onload: function () {
-		var lib, obj, pkg = null;
+	init: function () {
+		var lib, obj, pkg, repo = null;
 
 		for( var i in PoliteJS.libs ) {
 			lib = PoliteJS.libs[i];
@@ -13,7 +14,10 @@ PoliteJS = {
       } catch (e) {
         //Object is not loaded.  Go get it.
 				pkg = lib.replace(/([^^])([A-Z])/g, function($_,$1,$2){ return $1 + '_' +$2.toLowerCase()}).replace(/(^.)/,function($1){ return $1.toLowerCase()})
-        print('http://getfromrepo.usted/' + pkg + '.js');
+
+        //iterate if fail
+        print(PoliteJS.REPO[0] + pkg + '.js');
+        //check for model fail
 
       }
 
@@ -29,6 +33,10 @@ PoliteJS = {
     PoliteJS.libs.push(klass);
 	},
 
+  addRepository: function(repo) {
+    PoliteJS.REPO.unshift(repo);
+  },
+
   bootstrapBrowsers: function(document) {
     //thanks jQuery 
     if ( document.addEventListener ) {
@@ -36,7 +44,7 @@ PoliteJS = {
       document.addEventListener( "DOMContentLoaded", DOMContentLoaded, false );
 
       // A fallback to window.onload, that will always work
-      window.addEventListener( "load", PoliteJS.onload, false );
+      window.addEventListener( "load", PoliteJS.init, false );
 
     // If IE event model is used
     } else if ( document.attachEvent ) {
@@ -45,7 +53,7 @@ PoliteJS = {
       document.attachEvent( "onreadystatechange", DOMContentLoaded );
 
       // A fallback to window.onload, that will always work
-      window.attachEvent( "onload", PoliteJS.onload );
+      window.attachEvent( "onload", PoliteJS.init );
 
       // If IE and not a frame
       // continually check to see if the document is ready
@@ -65,3 +73,7 @@ PoliteJS = {
 if(typeof document == 'object') {
   PoliteJS.bootstrapBrowsers(document);
 }
+
+PoliteJS.register('FormModel');
+PoliteJS.addRepository('/javascripts/');
+PoliteJS.init();
