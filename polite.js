@@ -2,24 +2,36 @@ PoliteJS = {
 	libs: [],
 
 	onload: function () {
-		var lib;
+		var lib = null;
+    var obj = null;
+    var pkg = null;
+
 		for( var i in PoliteJS.libs ) {
 			lib = PoliteJS.libs[i];
 
-			if ( typeof ( var obj = eval(klass) ) != 'object' ) {
-				//Load lib
-				klass.replace(/([^^])([A-Z])/g, function($_,$1,$2){ return $1 + '_' +$2.toLowerCase()}).replace(/(^.)/,function($1){ return $1.toLowerCase()})
-			} else {
-				var obj = eval(klass);
+      try {
+        obj = eval(lib)
 
-				if( klass.init ) {
-					klass.init();
-				}
-			}
+      } catch (e) {
+        //Object is not loaded.  Go get it.
+				pkg = lib.replace(/([^^])([A-Z])/g, function($_,$1,$2){ return $1 + '_' +$2.toLowerCase()}).replace(/(^.)/,function($1){ return $1.toLowerCase()})
+        print('http://getfromrepo.usted/' + pkg + '.js');
+
+      }
+
+      //init library
+      if( obj && obj.init ) {
+        obj.init();
+      }
+
 		}
 	},
 
 	register: function(klass) {
-			PoliteJS.libs.push(obj);
+    PoliteJS.libs.push(klass);
 	}
 }
+
+PoliteJS.register('HighMe');
+PoliteJS.register('BobDos');
+PoliteJS.onload();
