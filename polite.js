@@ -9,20 +9,29 @@ PoliteJS = {
 			lib = PoliteJS.libs[i];
 
       try {
-        obj = eval(lib)
+        //obj = eval(lib)
 
       } catch (e) {
         //Object is not loaded.  Go get it.
 				pkg = lib.replace(/([^^])([A-Z])/g, function($_,$1,$2){ return $1 + '_' +$2.toLowerCase()}).replace(/(^.)/,function($1){ return $1.toLowerCase()})
 
         //iterate if fail
-        print(PoliteJS.REPO[0] + pkg + '.js');
+        PoliteJS.log(PoliteJS.REPO[0] + pkg + '.js');
+				var script = document.createElement('script');
+				script.setAttribute('type', 'text/javascript');
+				script.setAttribute('src', PoliteJS.REPO[0] + pkg + '.js' );
+				document.body.appendChild(script);
         //check for model fail
+
+        //obj = eval(lib);
+				PoliteJS.log(lib);
 
       }
 
       //init library
+			(eval(lib));
       if( obj && obj.init ) {
+				PoliteJS.log('initing!');
         obj.init();
       }
 
@@ -37,11 +46,26 @@ PoliteJS = {
     PoliteJS.REPO.unshift(repo);
   },
 
+	includeJS: function(uri) {
+		if(uri.substring(0,3) == 'http') {
+
+		} else {
+			
+		}
+
+	},
+
+	log: function(msg) {
+		if( typeof console == 'object' ) {
+			console.log(msg);
+		}
+  },
+
   bootstrapBrowsers: function(document) {
     //thanks jQuery 
     if ( document.addEventListener ) {
       // Use the handy event callback
-      document.addEventListener( "DOMContentLoaded", DOMContentLoaded, false );
+      //document.addEventListener( "DOMContentLoaded", DOMContentLoaded, false );
 
       // A fallback to window.onload, that will always work
       window.addEventListener( "load", PoliteJS.init, false );
@@ -70,10 +94,7 @@ PoliteJS = {
   }
 }
 
+//Load for browsers
 if(typeof document == 'object') {
   PoliteJS.bootstrapBrowsers(document);
 }
-
-PoliteJS.register('FormModel');
-PoliteJS.addRepository('/javascripts/');
-PoliteJS.init();

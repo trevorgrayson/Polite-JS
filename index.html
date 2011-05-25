@@ -1,0 +1,19 @@
+<html>
+	<head>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.js"></script>
+		<script type="text/javascript" src="polite.js"></script>
+		<script>
+PoliteJS.addRepository('./javascripts/');
+PoliteJS.register('FormModel');
+PoliteJS.register('Address');
+		</script>
+	</head>
+	<body>
+		<h1>This is the body</h1>
+		<form name="address" class="form-model-address">
+			<input name="city"/>
+			<input name="state"/>
+			<input name="country"/>
+		</form>
+	</body>
+</html>
