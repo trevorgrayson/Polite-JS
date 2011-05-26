@@ -9,7 +9,7 @@ PoliteJS = {
 			lib = PoliteJS.libs[i];
 
       try {
-        //obj = eval(lib)
+        obj = eval(lib)
 
       } catch (e) {
         //Object is not loaded.  Go get it.
@@ -17,26 +17,22 @@ PoliteJS = {
 
         //iterate if fail
         PoliteJS.log(PoliteJS.REPO[0] + pkg + '.js');
-				var script = document.createElement('script');
-				script.setAttribute('type', 'text/javascript');
-				script.setAttribute('src', PoliteJS.REPO[0] + pkg + '.js' );
-				document.body.appendChild(script);
+				$.getScript(PoliteJS.REPO[0] + pkg + '.js');
         //check for model fail
-
-        //obj = eval(lib);
-				PoliteJS.log(lib);
 
       }
 
       //init library
-			(eval(lib));
-      if( obj && obj.init ) {
-				PoliteJS.log('initing!');
-        obj.init();
-      }
+      //if( obj && obj.init ) {
+			//	PoliteJS.log('initing!');
+      //  obj.init();
+      //}
 
 		}
 	},
+  scriptLoaded: function(lib) {
+    (new Function("document." + lib + ".init()"))();
+  },
 
 	register: function(klass) {
     PoliteJS.libs.push(klass);
