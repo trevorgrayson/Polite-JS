@@ -1,4 +1,4 @@
-document.FormModel = {
+FormModel = {
 	models: {},
 	addModel: function(name, model) {
 		FormModel.models[name] = model;
@@ -12,4 +12,3 @@ document.FormModel = {
 	}	
 }
 //HOW DO I GET getScript success to work?!?!
-PoliteJS.scriptLoaded('FormModel');
