@@ -5,8 +5,7 @@
       PoliteJS.addRepository('./javascripts/');
       PoliteJS.register('HtmlFormUx');
 			PoliteJS.config['HtmlFormUx'] = function() {
-				//Running twice.  How do you load stuff after you configure?
-				LazyLoad.load('./javascripts/address.js',HtmlFormUx.init);
+				LazyLoad.load('./javascripts/address.js',HtmlFormUx.afterInit);
 			}
 		</script>
 	</head>

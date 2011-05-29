@@ -39,9 +39,11 @@ _ = PoliteJS = {
   scriptLoaded: function(lib) {
 		try {
 			(new Function(lib + ".init()"))();
+		} catch (e) { _.log(lib + ": No init found."); }
+		try {
 			//Need to pass lib as this (apply)
 			PoliteJS.config[lib]();
-		} catch (e) { }
+		} catch (e) { _.log(lib + ": No config found."); }
   },
 
 	register: function(klass) {

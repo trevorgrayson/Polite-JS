@@ -1,6 +1,6 @@
 Address = {
 	city: /[A-Za-z]/,
-	state: /[0-9]/,
+	state: HtmlFormUx.NUMERIC,
 	country: /[A-Za-z]/,
 
 }
