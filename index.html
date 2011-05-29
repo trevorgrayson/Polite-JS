@@ -3,16 +3,20 @@
 		<script type="text/javascript" src="polite.js"></script>
 		<script>
       PoliteJS.addRepository('./javascripts/');
-      PoliteJS.register('FormModel');
-      PoliteJS.register('Address');
+      PoliteJS.register('HtmlFormUx');
+			PoliteJS.config['HtmlFormUx'] = function() {
+				//Running twice.  How do you load stuff after you configure?
+				LazyLoad.load('./javascripts/address.js',HtmlFormUx.init);
+			}
 		</script>
 	</head>
 	<body>
 		<h1>This is the body</h1>
-		<form name="address" class="form-model-address">
+		<form name="address" class="form-model-address" action="http://trevor.com">
 			<input name="city"/>
 			<input name="state"/>
 			<input name="country"/>
+			<input type="submit"/>
 		</form>
 	</body>
 </html>

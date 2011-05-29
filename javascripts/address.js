@@ -1,9 +1,6 @@
 Address = {
-	init: function() {
-		FormModel.addModel('address',{
-			city: /[a-zA-Z]+/
-		});
-		PoliteJS.log('Address loaded');
-	}
+	city: /[A-Za-z]/,
+	state: /[0-9]/,
+	country: /[A-Za-z]/,
 
 }

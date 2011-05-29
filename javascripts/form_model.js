@@ -7,7 +7,6 @@ FormModel = {
 
 	},
 	init: function() {
-		alert('form model loaded');
 
 	}	
 }
